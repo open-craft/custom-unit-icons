@@ -99,7 +99,7 @@ master_doc = 'index'
 project = 'custom-unit-icons'
 copyright = edx_theme.COPYRIGHT  # pylint: disable=redefined-builtin
 author = edx_theme.AUTHOR
-project_title = 'custom-unit-icons'
+project_title = 'Custom Unit Icons'
 documentation_title = "{project_title}".format(project_title=project_title)
 
 # The version info for the project you're documenting, acts as replacement for
