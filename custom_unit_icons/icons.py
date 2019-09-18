@@ -5,5 +5,5 @@ def get_icon(prev_fn, unit):
     """
     icon = getattr(unit, 'icon', 'default')
     if icon == 'default':
-        return prev_fn(unit)
+        return prev_fn()
     return icon
