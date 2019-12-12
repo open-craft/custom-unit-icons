@@ -4,24 +4,39 @@ custom-unit-icons
 |pypi-badge| |travis-badge| |codecov-badge| |doc-badge| |pyversions-badge|
 |license-badge|
 
-The ``README.rst`` file should start with a brief description of the repository,
-which sets it in the context of other repositories under the ``edx``
-organization. It should make clear where this fits in to the overall edX
-codebase.
+An Open edX Django plugin application for getting XBlock icons from modulestore. This allows customizing icon for each unit.
 
-This plugin allows customizing unit icons in Studio.
-
-Overview (please modify)
+Setup Instructions
 ------------------------
 
-The ``README.rst`` file should then provide an overview of the code in this
-repository, including the main components and useful entry points for starting
-to understand the code in more detail.
+On Open edX Devstack:
 
-Documentation
--------------
+1. Clone this repo into your devstack's ``src`` folder::
 
-The full documentation is at https://custom-unit-icons.readthedocs.org.
+    git clone git@github.com/open-craft/custom-unit-icons.git
+
+2. Install it into LMS's and Studio's devstack python environment::
+
+    make lms-shell
+    pip install -e /edx/src/custom-unit-icons/
+    logout
+
+    make studio-shell
+    pip install -e /edx/src/custom-unit-icons/
+    logout
+
+3. Set the following variable in your local settings (e.g. `lms/envs/private.py`)::
+
+     GET_UNIT_ICON_IMPL = 'custom_unit_icons.icons.get_icon'
+
+4. Restart LMS::
+
+    make lms-restart
+
+Usage instructions
+-------------------
+
+You need to override Studio theme to be able to modify icons for units.
 
 License
 -------
