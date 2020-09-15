@@ -11,32 +11,64 @@ Setup Instructions
 
 On Open edX Devstack:
 
-1. Clone this repo into your devstack's ``src`` folder::
+#. Clone this repo into your devstack's ``src`` folder:
 
-    git clone git@github.com/open-craft/custom-unit-icons.git
+    .. code-block:: bash
 
-2. Install it into LMS's and Studio's devstack python environment::
+        git clone git@github.com/open-craft/custom-unit-icons.git
 
-    make lms-shell
-    pip install -e /edx/src/custom-unit-icons/
-    logout
+#. Install it into LMS's and Studio's devstack python environment:
 
-    make studio-shell
-    pip install -e /edx/src/custom-unit-icons/
-    logout
+    .. code-block:: bash
 
-3. Set the following variable in your local settings (e.g. `lms/envs/private.py`)::
+        make lms-shell
+        pip install -e /edx/src/custom-unit-icons/
+        logout
 
-     GET_UNIT_ICON_IMPL = 'custom_unit_icons.icons.get_icon'
+        make studio-shell
+        pip install -e /edx/src/custom-unit-icons/
+        logout
 
-4. Restart LMS::
+#. Set the following variables in either:
 
-    make lms-restart
+    a. ``/edx/etc/lms.yml``:
+
+        .. code-block:: yaml
+
+            GET_UNIT_ICON_IMPL: custom_unit_icons.icons.get_icon
+            XBLOCK_EXTRA_MIXINS:
+                - custom_unit_icons.icons.IconOverrideMixin
+
+    #. ``lms/envs/private.py``:
+
+        .. code-block:: python
+
+            from .common import XBLOCK_MIXINS
+            GET_UNIT_ICON_IMPL = 'custom_unit_icons.icons.get_icon'
+            XBLOCK_MIXINS += ('custom_unit_icons.icons.IconOverrideMixin',)
+
+#. Restart LMS:
+
+    .. code-block:: bash
+
+        make lms-restart
 
 Usage instructions
 -------------------
 
 You need to override Studio theme to be able to modify icons for units.
+
+If you want to modify an icon manually, you can use the following snippet via Django shell:
+
+.. code-block:: python
+
+    from xmodule.modulestore.django import modulestore
+    from opaque_keys.edx.keys import UsageKey
+
+    usage_key = UsageKey.from_string('block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_0270f6de40fc')
+    item = modulestore().get_item(usage_key)
+    item.icon_override = 'video'
+    modulestore().update_item(item, 1)
 
 License
 -------
