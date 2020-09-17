@@ -1,9 +1,6 @@
 custom-unit-icons
 =============================
 
-|pypi-badge| |travis-badge| |codecov-badge| |doc-badge| |pyversions-badge|
-|license-badge|
-
 An Open edX Django plugin application for getting XBlock icons from modulestore. This allows customizing icon for each unit.
 
 Setup Instructions
@@ -106,28 +103,3 @@ Have a question about this repository, or about Open edX in general?  Please
 refer to this `list of resources`_ if you need any assistance.
 
 .. _list of resources: https://open.edx.org/getting-help
-
-
-.. |pypi-badge| image:: https://img.shields.io/pypi/v/custom-unit-icons.svg
-    :target: https://pypi.python.org/pypi/custom-unit-icons/
-    :alt: PyPI
-
-.. |travis-badge| image:: https://travis-ci.org/edx/custom-unit-icons.svg?branch=master
-    :target: https://travis-ci.org/edx/custom-unit-icons
-    :alt: Travis
-
-.. |codecov-badge| image:: http://codecov.io/github/edx/custom-unit-icons/coverage.svg?branch=master
-    :target: http://codecov.io/github/edx/custom-unit-icons?branch=master
-    :alt: Codecov
-
-.. |doc-badge| image:: https://readthedocs.org/projects/custom-unit-icons/badge/?version=latest
-    :target: http://custom-unit-icons.readthedocs.io/en/latest/
-    :alt: Documentation
-
-.. |pyversions-badge| image:: https://img.shields.io/pypi/pyversions/custom-unit-icons.svg
-    :target: https://pypi.python.org/pypi/custom-unit-icons/
-    :alt: Supported Python versions
-
-.. |license-badge| image:: https://img.shields.io/github/license/edx/custom-unit-icons.svg
-    :target: https://github.com/edx/custom-unit-icons/blob/master/LICENSE.txt
-    :alt: License
