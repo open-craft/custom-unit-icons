@@ -1,9 +1,6 @@
 custom-unit-icons
 =============================
 
-|pypi-badge| |travis-badge| |codecov-badge| |doc-badge| |pyversions-badge|
-|license-badge|
-
 An Open edX Django plugin application for getting XBlock icons from modulestore. This allows customizing icon for each unit.
 
 Setup Instructions
@@ -11,32 +8,64 @@ Setup Instructions
 
 On Open edX Devstack:
 
-1. Clone this repo into your devstack's ``src`` folder::
+#. Clone this repo into your devstack's ``src`` folder:
 
-    git clone git@github.com/open-craft/custom-unit-icons.git
+    .. code-block:: bash
 
-2. Install it into LMS's and Studio's devstack python environment::
+        git clone git@github.com/open-craft/custom-unit-icons.git
 
-    make lms-shell
-    pip install -e /edx/src/custom-unit-icons/
-    logout
+#. Install it into LMS's and Studio's devstack python environment:
 
-    make studio-shell
-    pip install -e /edx/src/custom-unit-icons/
-    logout
+    .. code-block:: bash
 
-3. Set the following variable in your local settings (e.g. `lms/envs/private.py`)::
+        make lms-shell
+        pip install -e /edx/src/custom-unit-icons/
+        logout
 
-     GET_UNIT_ICON_IMPL = 'custom_unit_icons.icons.get_icon'
+        make studio-shell
+        pip install -e /edx/src/custom-unit-icons/
+        logout
 
-4. Restart LMS::
+#. Set the following variables in either:
 
-    make lms-restart
+    a. ``/edx/etc/lms.yml``:
+
+        .. code-block:: yaml
+
+            GET_UNIT_ICON_IMPL: custom_unit_icons.icons.get_icon
+            XBLOCK_EXTRA_MIXINS:
+                - custom_unit_icons.icons.IconOverrideMixin
+
+    #. ``lms/envs/private.py``:
+
+        .. code-block:: python
+
+            from .common import XBLOCK_MIXINS
+            GET_UNIT_ICON_IMPL = 'custom_unit_icons.icons.get_icon'
+            XBLOCK_MIXINS += ('custom_unit_icons.icons.IconOverrideMixin',)
+
+#. Restart LMS:
+
+    .. code-block:: bash
+
+        make lms-restart
 
 Usage instructions
 -------------------
 
 You need to override Studio theme to be able to modify icons for units.
+
+If you want to modify an icon manually, you can use the following snippet via Django shell:
+
+.. code-block:: python
+
+    from xmodule.modulestore.django import modulestore
+    from opaque_keys.edx.keys import UsageKey
+
+    usage_key = UsageKey.from_string('block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_0270f6de40fc')
+    item = modulestore().get_item(usage_key)
+    item.icon_override = 'video'
+    modulestore().update_item(item, 1)
 
 License
 -------
@@ -74,28 +103,3 @@ Have a question about this repository, or about Open edX in general?  Please
 refer to this `list of resources`_ if you need any assistance.
 
 .. _list of resources: https://open.edx.org/getting-help
-
-
-.. |pypi-badge| image:: https://img.shields.io/pypi/v/custom-unit-icons.svg
-    :target: https://pypi.python.org/pypi/custom-unit-icons/
-    :alt: PyPI
-
-.. |travis-badge| image:: https://travis-ci.org/edx/custom-unit-icons.svg?branch=master
-    :target: https://travis-ci.org/edx/custom-unit-icons
-    :alt: Travis
-
-.. |codecov-badge| image:: http://codecov.io/github/edx/custom-unit-icons/coverage.svg?branch=master
-    :target: http://codecov.io/github/edx/custom-unit-icons?branch=master
-    :alt: Codecov
-
-.. |doc-badge| image:: https://readthedocs.org/projects/custom-unit-icons/badge/?version=latest
-    :target: http://custom-unit-icons.readthedocs.io/en/latest/
-    :alt: Documentation
-
-.. |pyversions-badge| image:: https://img.shields.io/pypi/pyversions/custom-unit-icons.svg
-    :target: https://pypi.python.org/pypi/custom-unit-icons/
-    :alt: Supported Python versions
-
-.. |license-badge| image:: https://img.shields.io/github/license/edx/custom-unit-icons.svg
-    :target: https://github.com/edx/custom-unit-icons/blob/master/LICENSE.txt
-    :alt: License

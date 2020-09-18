@@ -1,11 +1,8 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 # pylint: disable=open-builtin,native-string
 """
 Package metadata for custom_unit_icons.
 """
-from __future__ import absolute_import, print_function
-
 import os
 import re
 import sys
@@ -24,33 +21,6 @@ def get_version(*file_paths):
     if version_match:
         return version_match.group(1)
     raise RuntimeError('Unable to find version string.')
-
-
-def load_requirements(*requirements_paths):
-    """
-    Load all requirements from the specified requirements files.
-
-    Returns:
-        list: Requirements file relative path strings
-    """
-    requirements = set()
-    for path in requirements_paths:
-        requirements.update(
-            line.split('#')[0].strip() for line in open(path).readlines()
-            if is_requirement(line.strip())
-        )
-    return list(requirements)
-
-
-def is_requirement(line):
-    """
-    Return True if the requirement line is a package requirement.
-
-    Returns:
-        bool: True if the line is not blank, a comment, a URL, or an included file
-    """
-    return line and not line.startswith(('-r', '#', '-e', 'git+', '-c'))
-
 
 VERSION = get_version('custom_unit_icons', '__init__.py')
 
@@ -75,7 +45,6 @@ setup(
         'custom_unit_icons',
     ],
     include_package_data=True,
-    install_requires=load_requirements('requirements/base.in'),
     license="AGPL 3.0",
     zip_safe=False,
     keywords='Django edx',
