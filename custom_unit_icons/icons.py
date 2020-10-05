@@ -26,5 +26,5 @@ def get_icon(prev_fn, unit):
     """
     icon = getattr(unit, 'icon_override', 'default')
     if icon == 'default':
-        return prev_fn()
+        return prev_fn(unit)
     return icon
