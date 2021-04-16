@@ -26,13 +26,13 @@ On Open edX Devstack:
         pip install -e /edx/src/custom-unit-icons/
         logout
 
-#. Set the following variables in either:
+#. Set the following variables for the LMS, in either:
 
     a. ``/edx/etc/lms.yml``:
 
         .. code-block:: yaml
 
-            GET_UNIT_ICON_IMPL: custom_unit_icons.icons.get_icon
+            OVERRIDE_GET_UNIT_ICON: custom_unit_icons.icons.get_icon
             XBLOCK_EXTRA_MIXINS:
                 - custom_unit_icons.icons.IconOverrideMixin
 
@@ -41,7 +41,25 @@ On Open edX Devstack:
         .. code-block:: python
 
             from .common import XBLOCK_MIXINS
-            GET_UNIT_ICON_IMPL = 'custom_unit_icons.icons.get_icon'
+            OVERRIDE_GET_UNIT_ICON = 'custom_unit_icons.icons.get_icon'
+            XBLOCK_MIXINS += ('custom_unit_icons.icons.IconOverrideMixin',)
+
+#. Set the following variables for the Studio, in either:
+
+    a. ``/edx/etc/studio.yml``:
+
+        .. code-block:: yaml
+
+            OVERRIDE_CREATE_XBLOCK_INFO: custom_unit_icons.icons.create_xblock_info
+            XBLOCK_EXTRA_MIXINS:
+                - custom_unit_icons.icons.IconOverrideMixin
+
+    #. ``cms/envs/private.py``:
+
+        .. code-block:: python
+
+            from .common import XBLOCK_MIXINS
+            OVERRIDE_CREATE_XBLOCK_INFO = 'custom_unit_icons.icons.create_xblock_info'
             XBLOCK_MIXINS += ('custom_unit_icons.icons.IconOverrideMixin',)
 
 #. Restart LMS:
