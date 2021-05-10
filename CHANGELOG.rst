@@ -11,6 +11,14 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[0.5.0] - 2021-05-10
+~~~~~~~~~~~~~~~~~~~~
+
+Added
+_____
+
+* Support for the legacy icon overrides.
+
 [0.4.0] - 2021-04-13
 ~~~~~~~~~~~~~~~~~~~~
 
